@@ -8,15 +8,23 @@ catch(Exception $e){
         die('Erreur : '.$e->getMessage());
 }
 
-$query= 'SELECT * FROM sub_category';
+var_dump($_POST);
+var_dump($_FILES);
+
+$query= 'SELECT * FROM category';
 $req = $db->prepare($query);
 $req->execute();
 $categorys = $req->fetchAll(PDO::FETCH_ASSOC);
 
-$query1= 'SELECT * FROM plateforms';
+$query1= 'SELECT * FROM sub_category';
 $req1 = $db->prepare($query1);
 $req1->execute();
-$plateforms = $req1->fetchAll(PDO::FETCH_ASSOC);
+$sub_categorys = $req1->fetchAll(PDO::FETCH_ASSOC);
+
+$query2= 'SELECT * FROM plateforms';
+$req2 = $db->prepare($query2);
+$req2->execute();
+$plateforms = $req2->fetchAll(PDO::FETCH_ASSOC);
 
 
 
@@ -31,8 +39,13 @@ $msg1="";
 $msg2="";
 if(isset($_POST['submit'])){
 
-    if (!isset($_POST['name']) || empty($_POST['name'])
-    || (!isset($_POST['description']) || empty($_POST['description']))){
+    if (!isset($_POST['identifier']) || empty($_POST['identifier'])
+    || (!isset($_POST['name']) || empty($_POST['name']))
+    || (!isset($_POST['description']) || empty($_POST['description']))
+    || (!isset($_POST['price']) || empty($_POST['price']))
+    || (!isset($_POST['price']) || empty($_POST['price']))
+    || (!isset($_POST['price']) || empty($_POST['price']))
+    || (!isset($_POST['price']) || empty($_POST['price']))){
         
     $msg1='tout les champs doit etre remplit .';
     } else {
@@ -53,19 +66,19 @@ if(isset($_POST['submit'])){
 
 
 
-
+                    $identifier = strip_tags($_POST['identifier']);
                     $name = strip_tags($_POST['name']);
                     $description= strip_tags($_POST['description']);
-
-
-
-
-
-
-
-
-
+                    $price = strip_tags($_POST['price']);
+                    $is_enable =
                     
+
+
+
+
+
+
+
                 
             
                     move_uploaded_file($_FILES['photo']['tmp_name'], 'uploads/' . basename($_FILES['photo']['name']));
@@ -161,13 +174,13 @@ if(isset($_POST['submit'])){
 
             <div class="mb-3">
                 <label for="is_enable" class="form-label">Disponible</label>
-                <input type="checkbox" class="form-control"  name="is_enable">
+                <input type="checkbox" class="form-control"  name="is_enable" value="1">
             </div>
 
 
 
             <div class="mb-3">
-                <label for="definition" class="form-label">id plateforme</label>
+                <label for="Id_plateforms" class="form-label">Plateforme</label>
                 <select name="Id_plateforms">
                     <?php
                     foreach ($plateforms as $plateform) {
@@ -182,12 +195,21 @@ if(isset($_POST['submit'])){
 
             
             <div class="mb-3">
-                <label for="definition" class="form-label">id sub categroy</label>
-                <select name="Id_sub_category">
+                <label for="Id_sub_category" class="form-label">Catégorie</label>
+                <select name="Id_category" name="Id_sub_category" multiple>
                     <?php
+
                     foreach ($categorys as $category) {
                     ?>
                         <option value="<?= $category['Id'] ?>"><?= $category['name'] ?></option>
+                    <?php
+                    }
+                    ?>
+        
+                    <?php
+                    foreach ($sub_categorys as $sub_category) {
+                    ?>
+                        <option value="<?= $sub_category['Id'] ?>"><?= $sub_category['name'] ?></option>
                     <?php
                     }
                     ?>
