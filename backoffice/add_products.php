@@ -10,6 +10,7 @@ catch(Exception $e){
 
 var_dump($_POST);
 var_dump($_FILES);
+var_dump($_GET);
 
 $query= 'SELECT * FROM category';
 $req = $db->prepare($query);
@@ -29,23 +30,21 @@ $plateforms = $req2->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-
-
-
-
-
-
 $msg1="";
 $msg2="";
+
+
 if(isset($_POST['submit'])){
 
     if (!isset($_POST['identifier']) || empty($_POST['identifier'])
     || (!isset($_POST['name']) || empty($_POST['name']))
     || (!isset($_POST['description']) || empty($_POST['description']))
     || (!isset($_POST['price']) || empty($_POST['price']))
-    || (!isset($_POST['price']) || empty($_POST['price']))
-    || (!isset($_POST['price']) || empty($_POST['price']))
-    || (!isset($_POST['price']) || empty($_POST['price']))){
+    || (!isset($_FILES['photo']) || empty($_FILES['photo']))
+    // || (!isset($_POST['Id_plateforms']) || empty($_POST['Id_plateforms']))
+    // || (!isset($_POST['Id_category']) || empty($_POST['Id_category']))
+    // || (!isset($_POST['Id_sub_category']) || empty($_POST['Id_sub_category']))
+     ){
         
     $msg1='tout les champs doit etre remplit .';
     } else {
@@ -63,24 +62,13 @@ if(isset($_POST['submit'])){
 
 
 
-
-
-
                     $identifier = strip_tags($_POST['identifier']);
                     $name = strip_tags($_POST['name']);
                     $description= strip_tags($_POST['description']);
                     $price = strip_tags($_POST['price']);
-                    $is_enable =
-                    
-
-
-
-
-
-
-
+                    $isEnable = strip_tags($_POST['is_enable']);
                 
-            
+                    
                     move_uploaded_file($_FILES['photo']['tmp_name'], 'uploads/' . basename($_FILES['photo']['name']));
                     $screenshot = 'uploads/' . basename($_FILES['photo']['name']);
                     $query = 'INSERT INTO products(name, description, path) VALUES (:name, :description, :path)';
@@ -121,6 +109,8 @@ if(isset($_POST['submit'])){
 
     }
 }
+
+
 
 
 
@@ -173,8 +163,11 @@ if(isset($_POST['submit'])){
            
 
             <div class="mb-3">
-                <label for="is_enable" class="form-label">Disponible</label>
-                <input type="checkbox" class="form-control"  name="is_enable" value="1">
+                <label for="is_enable_on" class="form-label">Disponible</label>
+                <input type="radio" class="form-control"  name="is_enable" value="1">
+
+                <label for="is_enable_off" class="form-label">Non Disponible</label>
+                <input type="radio" class="form-control"  name="is_enable" value="2">
             </div>
 
 
@@ -205,7 +198,7 @@ if(isset($_POST['submit'])){
                     <?php
                     }
                     ?>
-        
+
                     <?php
                     foreach ($sub_categorys as $sub_category) {
                     ?>
