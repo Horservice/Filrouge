@@ -1,5 +1,12 @@
 <?php
-
+try{
+	// On se connecte à MySQL
+	$db = new PDO('mysql:host=localhost;dbname=filrouge;charset=utf8', 'root', '');
+}
+catch(Exception $e){
+	// En cas d'erreur, on affiche un message et on arrête tout
+        die('Erreur : '.$e->getMessage());
+}
 
 $msg1="";
 $msg2="";
@@ -54,6 +61,14 @@ if(isset($_POST['submit'])){
 }
 
 
+$query = 'SELECT * FROM products';
+$req = $db->prepare($query);
+$req->execute();
+$products = $req->fetchAll();
+
+
+
+
 
 
 ?>
@@ -73,21 +88,37 @@ if(isset($_POST['submit'])){
 
 
         <form action="" method="POST" class="row my-5" enctype="multipart/form-data">
+
+
             <div class="mb-3">
-                <label for="name" class="form-label">name</label>
-                <input type="text" class="form-control"  name="name">
+                <label for="identifier" class="form-label">identifier</label>
+                <input type="text" class="form-control"  name="identifier">
             </div>
+
+
             <div class="mb-3">
                 <label for="description" class="form-label">description</label>
                 <textarea class="form-control" name="description"></textarea>
             </div>
           
+
+            <div class="mb-3">
+                <label for="price" class="form-label">Prix</label>
+                <input type="number" class="form-control"  name="price">
+            </div>
                     
             <div class="mb-3">
                 <label for="path" class="form-label">path</label>
                 <input type="file" class="form-control"  name="photo">
             </div>                                        <!-- name="photo" =  $_FILES['photo'] -->
            
+
+            <div class="mb-3">
+                <label for="is_enable" class="form-label">Disponible</label>
+                <input type="checkbox" class="form-control"  name="is_enable">
+            </div>
+
+
 
             <div class="mb-3 col-3">
                 <button type="submit" class="btn btn-primary" name="submit">Valider</button>
