@@ -8,6 +8,25 @@ catch(Exception $e){
         die('Erreur : '.$e->getMessage());
 }
 
+$query= 'SELECT * FROM sub_category';
+$req = $db->prepare($query);
+$req->execute();
+$categorys = $req->fetchAll(PDO::FETCH_ASSOC);
+
+$query1= 'SELECT * FROM plateforms';
+$req1 = $db->prepare($query1);
+$req1->execute();
+$plateforms = $req1->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+
+
+
+
+
+
+
 $msg1="";
 $msg2="";
 if(isset($_POST['submit'])){
@@ -29,8 +48,24 @@ if(isset($_POST['submit'])){
                 $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png'];
                 if (in_array($extension, $allowedExtensions)) { 
 
+
+
+
+
+
+
                     $name = strip_tags($_POST['name']);
                     $description= strip_tags($_POST['description']);
+
+
+
+
+
+
+
+
+
+                    
                 
             
                     move_uploaded_file($_FILES['photo']['tmp_name'], 'uploads/' . basename($_FILES['photo']['name']));
@@ -42,6 +77,20 @@ if(isset($_POST['submit'])){
                     $req->bindValue(':path',$screenshot , PDO::PARAM_STR);
                     $req->execute();
                     $msg2="nouveaux catégorie ajoute a la base de donnée.";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 } else {
                     echo 'Le format du fichier n\'est pas autorisé. Merci de n\'envoyer que des fichiers .jpg, .jpeg, .png ou .gif';
@@ -59,14 +108,6 @@ if(isset($_POST['submit'])){
 
     }
 }
-
-
-$query = 'SELECT * FROM products';
-$req = $db->prepare($query);
-$req->execute();
-$products = $req->fetchAll();
-
-
 
 
 
@@ -95,6 +136,10 @@ $products = $req->fetchAll();
                 <input type="text" class="form-control"  name="identifier">
             </div>
 
+            <div class="mb-3">
+                <label for="name" class="form-label">name</label>
+                <input type="text" class="form-control"  name="name">
+            </div>
 
             <div class="mb-3">
                 <label for="description" class="form-label">description</label>
@@ -106,9 +151,10 @@ $products = $req->fetchAll();
                 <label for="price" class="form-label">Prix</label>
                 <input type="number" class="form-control"  name="price">
             </div>
+            
                     
             <div class="mb-3">
-                <label for="path" class="form-label">path</label>
+                <label for="path" class="form-label">Photo</label>
                 <input type="file" class="form-control"  name="photo">
             </div>                                        <!-- name="photo" =  $_FILES['photo'] -->
            
@@ -118,6 +164,35 @@ $products = $req->fetchAll();
                 <input type="checkbox" class="form-control"  name="is_enable">
             </div>
 
+
+
+            <div class="mb-3">
+                <label for="definition" class="form-label">id plateforme</label>
+                <select name="Id_plateforms">
+                    <?php
+                    foreach ($plateforms as $plateform) {
+                    ?>
+                        <option value="<?= $plateform['Id'] ?>"><?= $plateform['name'] ?></option>
+                    <?php
+                    }
+                    ?>
+                </select>
+            </div>
+
+
+            
+            <div class="mb-3">
+                <label for="definition" class="form-label">id sub categroy</label>
+                <select name="Id_sub_category">
+                    <?php
+                    foreach ($categorys as $category) {
+                    ?>
+                        <option value="<?= $category['Id'] ?>"><?= $category['name'] ?></option>
+                    <?php
+                    }
+                    ?>
+                </select>
+            </div>
 
 
             <div class="mb-3 col-3">
