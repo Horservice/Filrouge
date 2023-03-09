@@ -47,8 +47,10 @@ $sub_category = $req->fetchAll();
                 <th>ID</th>
                 <th>nom</th>
                 <th>description</th>
-                <th>Photo</th>
+                <th>chemin</th>
+                <th>photo</th>
                 <th>Action</th>
+
             </tr>
         </thead>
         

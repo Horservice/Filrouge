@@ -18,7 +18,7 @@ if(isset($_POST['submit'])){
     if (!isset($_POST['name']) || empty($_POST['name']))
     {    
         $msg1="tout les champs doit être remplit sinon ça marche pas !";
-s
+
     } else {
         $name = strip_tags($_POST['name']);
         

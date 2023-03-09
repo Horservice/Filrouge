@@ -12,17 +12,31 @@ var_dump($_POST);
 var_dump($_FILES);
 var_dump($_GET);
 
-$query= 'SELECT * FROM category';
-$req = $db->prepare($query);
-$req->execute();
-$categorys = $req->fetchAll(PDO::FETCH_ASSOC);
 
-$query1= 'SELECT * FROM sub_category';
+$query1= 'SELECT * FROM sub_category WHERE Id <=3';
 $req1 = $db->prepare($query1);
 $req1->execute();
 $sub_categorys = $req1->fetchAll(PDO::FETCH_ASSOC);
 
-$query2= 'SELECT * FROM plateforms';
+
+$query3= 'SELECT * FROM sub_category WHERE Id <=3';
+$req3 = $db->prepare($query3);
+$req3->execute();
+$sub_categorys1 = $req3->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+
+
+
+
+
+
+
+
+
+
+$query2= 'SELECT * FROM plateforms ';
 $req2 = $db->prepare($query2);
 $req2->execute();
 $plateforms = $req2->fetchAll(PDO::FETCH_ASSOC);
@@ -32,7 +46,6 @@ $plateforms = $req2->fetchAll(PDO::FETCH_ASSOC);
 
 $msg1="";
 $msg2="";
-$msg10="";
 
 if(isset($_POST['submit'])){
 
@@ -67,13 +80,14 @@ if(isset($_POST['submit'])){
                     $description= strip_tags($_POST['description']);
                     $price = strip_tags($_POST['price']);
                     $isEnable = strip_tags($_POST['is_enable']);
-                    $plateforms = strip_tags($_POST['Id_plateforms']);
-                    $subCategory = strip_tags($_POST['Id_sub_category']);
-                    $Category = strip_tags($_POST['Id_category']);
+                    $plateforms = ($_POST['Id_plateforms']);
+                    $subCategory = ($_POST['Id_sub_category']);
 
-                    
+
+
                     move_uploaded_file($_FILES['photo']['tmp_name'], 'uploads/' . basename($_FILES['photo']['name']));
                     $screenshot = 'uploads/' . basename($_FILES['photo']['name']);
+
                     $query = 'INSERT INTO products(identifier, name, description, price, path, is_enable, Id_plateforms, Id_sub_category, Id_category)
                               VALUES (:identifier, :name, :description, :price, :path, :is_enable, :Id_plateforms, :Id_sub_category, :Id_category )';
                     $req = $db->prepare($query);
@@ -84,9 +98,35 @@ if(isset($_POST['submit'])){
                     $req->bindValue(':price', $price, PDO::PARAM_STR);
                     $req->bindValue(':path',$screenshot , PDO::PARAM_STR);
                     $req->bindValue(':is_enable', $isEnable, PDO::PARAM_STR);
+
+
+
+
+
+
+                    
+                    
+                    
+                    
                     $req->bindValue(':Id_plateforms', $plateforms, PDO::PARAM_STR);
+                    
+                    
+                    
+                    
                     $req->bindValue(':Id_sub_category', $subCategory, PDO::PARAM_STR);
-                    $req->bindValue(':Id_category', $Category, PDO::PARAM_STR);
+
+
+
+
+
+
+
+
+
+
+
+
+
                     $req->execute();
                     $msg2="nouveaux catégorie ajoute a la base de donnée.";
 
@@ -159,7 +199,7 @@ if(isset($_POST['submit'])){
             <div class="mb-3">
                 <label for="path" class="form-label">Photo</label>
                 <input type="file" class="form-control"  name="photo">
-            </div>                                  <!-- name="photo" =  $_FILES['photo'] -->
+            </div>                                  <!-- name="photo" =  $_FILES['photo '] -->
            
 
             <div class="mb-3">
@@ -167,14 +207,14 @@ if(isset($_POST['submit'])){
                 <input type="radio" class="form-control"  name="is_enable" value="1">
 
                 <label for="is_enable_off" class="form-label">Non Disponible</label>
-                <input type="radio" class="form-control"  name="is_enable" value="2">
+                <input type="radio" class="form-control"  name="is_enable" value="0">
             </div>
 
 
 
             <div class="mb-3">
                 <label for="Id_plateforms" class="form-label">Plateforme</label>
-                <select name="Id_plateforms" multiple>
+                <select name="Id_plateforms">
                     <?php
                     foreach ($plateforms as $plateform) {
                     ?>
@@ -186,42 +226,73 @@ if(isset($_POST['submit'])){
             </div>
 
 
-            
-            <div class="mb-3">
-                <label for="Id_category" class="form-label">Catégorie</label>
-                <select name="Id_category"  multiple>
-                    <?php
 
-                    foreach ($categorys as $category) {
-                    ?>
-                        <option value="<?= $category['Id'] ?>"><?= $category['name'] ?></option>
-                    <?php
-                    }
-                    ?>
-
-
-                </select>
-            </div>
 
                     
             
             <div class="mb-3">
                 <label for="Id_sub_category" class="form-label">Sous Catégorie</label>
-                <select name="Id_sub_category" multiple>
+                <select name="Id_sub_category">
+                    <optgroup label="rpg ">
+                    
+
+                        <?php
+                        foreach ($sub_categorys as $sub_category) {
+                        ?>
+                            <option value="<?= $sub_category['Id'] ?>"><?= $sub_category['name'] ?></option>
+                        <?php
+                        }
+                        ?>
 
 
-                    <?php
-                    foreach ($sub_categorys as $sub_category) {
-                    ?>
-                        <option value="<?= $sub_category['Id'] ?>"><?= $sub_category['name'] ?></option>
-                    <?php
-                    }
-                    ?>
+
+
+
+
+
+                        
+                    </optgroup>
+                    
+                    <optgroup label="rpg ">
+                    
+
+                        <?php
+                        foreach ($sub_categorys1 as $sub_category1) {
+                        ?>
+                            <option value="<?= $sub_category1['Id'] ?>"><?= $sub_category1['name'] ?></option>
+                        <?php
+                        }
+                        ?>
+
+
+
+
+
+
+
+                        
+                    </optgroup>
+                    
+                                        
+                    <optgroup label="rpg ">
+                    
+
+                        <?php
+                        foreach ($sub_categorys as $sub_category) {
+                        ?>
+                            <option value="<?= $sub_category['Id'] ?>"><?= $sub_category['name'] ?></option>
+                        <?php
+                        }
+                        ?>
+
+
+
+
+                        
+                    </optgroup>
+
                 </select>
             </div>
-
-
-
 
 
 

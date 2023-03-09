@@ -47,8 +47,14 @@ $products = $req->fetchAll();
                 <th>ID</th>
                 <th>nom</th>
                 <th>description</th>
-                <th>Photo</th>
-                <th>Action</th>
+                <th>chemin</th>
+                <th>photo</th>
+                <th>photo</th>
+                <th>photo</th>
+                <th>photo</th>
+                <th>photo</th>
+                <th>photo</th>
+
             </tr>
         </thead>
         
@@ -59,8 +65,12 @@ $products = $req->fetchAll();
                 <td><?=$product['Id']?></td>
                 <td><?=$product['name']?></td>
                 <td><?=$product['description']?></td>
-                <td><?=$product['path']?></td>
+                <td><?=$product['price']?></td>
                 <td><img src="<?= $product['path']?>"></td>
+                <td><?=$product['is_enable']?></td>
+                <td><?=$product['Id_plateforms']?></td>
+                <td><?=$product['Id_sub_category']?></td>
+                <td><?=$product['Id_category']?></td>
                 <td class="text-center">
                 <a class="btn btn-warning" role="button">Modifier</a>
 				<a class="btn btn-danger" onclick="return(confirm('Voulez-vous supprimer cet {insere} ?'));"
