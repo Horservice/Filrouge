@@ -32,7 +32,7 @@ $plateforms = $req2->fetchAll(PDO::FETCH_ASSOC);
 
 $msg1="";
 $msg2="";
-
+$msg10="";
 
 if(isset($_POST['submit'])){
 
@@ -67,27 +67,28 @@ if(isset($_POST['submit'])){
                     $description= strip_tags($_POST['description']);
                     $price = strip_tags($_POST['price']);
                     $isEnable = strip_tags($_POST['is_enable']);
-                
+                    $plateforms = strip_tags($_POST['Id_plateforms']);
+                    $subCategory = strip_tags($_POST['Id_sub_category']);
+                    $Category = strip_tags($_POST['Id_category']);
+
                     
                     move_uploaded_file($_FILES['photo']['tmp_name'], 'uploads/' . basename($_FILES['photo']['name']));
                     $screenshot = 'uploads/' . basename($_FILES['photo']['name']);
-                    $query = 'INSERT INTO products(name, description, path) VALUES (:name, :description, :path)';
+                    $query = 'INSERT INTO products(identifier, name, description, price, path, is_enable, Id_plateforms, Id_sub_category, Id_category)
+                              VALUES (:identifier, :name, :description, :price, :path, :is_enable, :Id_plateforms, :Id_sub_category, :Id_category )';
                     $req = $db->prepare($query);
+                    
+                    $req->bindValue(':identifier', $identifier, PDO::PARAM_STR);
                     $req->bindValue(':name', $name, PDO::PARAM_STR);
                     $req->bindValue(':description', $description, PDO::PARAM_STR);
+                    $req->bindValue(':price', $price, PDO::PARAM_STR);
                     $req->bindValue(':path',$screenshot , PDO::PARAM_STR);
+                    $req->bindValue(':is_enable', $isEnable, PDO::PARAM_STR);
+                    $req->bindValue(':Id_plateforms', $plateforms, PDO::PARAM_STR);
+                    $req->bindValue(':Id_sub_category', $subCategory, PDO::PARAM_STR);
+                    $req->bindValue(':Id_category', $Category, PDO::PARAM_STR);
                     $req->execute();
                     $msg2="nouveaux catégorie ajoute a la base de donnée.";
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -130,7 +131,6 @@ if(isset($_POST['submit'])){
 <div class="container">       
 <h4><?=$msg1?><?=$msg2?></h4>
 
-
         <form action="" method="POST" class="row my-5" enctype="multipart/form-data">
 
 
@@ -159,7 +159,7 @@ if(isset($_POST['submit'])){
             <div class="mb-3">
                 <label for="path" class="form-label">Photo</label>
                 <input type="file" class="form-control"  name="photo">
-            </div>                                        <!-- name="photo" =  $_FILES['photo'] -->
+            </div>                                  <!-- name="photo" =  $_FILES['photo'] -->
            
 
             <div class="mb-3">
@@ -174,7 +174,7 @@ if(isset($_POST['submit'])){
 
             <div class="mb-3">
                 <label for="Id_plateforms" class="form-label">Plateforme</label>
-                <select name="Id_plateforms">
+                <select name="Id_plateforms" multiple>
                     <?php
                     foreach ($plateforms as $plateform) {
                     ?>
@@ -188,8 +188,8 @@ if(isset($_POST['submit'])){
 
             
             <div class="mb-3">
-                <label for="Id_sub_category" class="form-label">Catégorie</label>
-                <select name="Id_category" name="Id_sub_category" multiple>
+                <label for="Id_category" class="form-label">Catégorie</label>
+                <select name="Id_category"  multiple>
                     <?php
 
                     foreach ($categorys as $category) {
@@ -198,6 +198,17 @@ if(isset($_POST['submit'])){
                     <?php
                     }
                     ?>
+
+
+                </select>
+            </div>
+
+                    
+            
+            <div class="mb-3">
+                <label for="Id_sub_category" class="form-label">Sous Catégorie</label>
+                <select name="Id_sub_category" multiple>
+
 
                     <?php
                     foreach ($sub_categorys as $sub_category) {
@@ -208,6 +219,10 @@ if(isset($_POST['submit'])){
                     ?>
                 </select>
             </div>
+
+
+
+
 
 
             <div class="mb-3 col-3">

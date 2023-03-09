@@ -41,7 +41,7 @@
 
                         $name = strip_tags($_POST['name']);
                         $description= strip_tags($_POST['description']);
-                        $id_category = strip_tags($_POST['categories']);
+                        $idCategory = strip_tags($_POST['categories']);
             
                         move_uploaded_file($_FILES['photo']['tmp_name'], 'uploads/' . basename($_FILES['photo']['name']));
                         $screenshot = 'uploads/' . basename($_FILES['photo']['name']);
@@ -50,7 +50,7 @@
                         $req->bindValue(':name', $name, PDO::PARAM_STR);
                         $req->bindValue(':description', $description, PDO::PARAM_STR);
                         $req->bindValue(':path',$screenshot , PDO::PARAM_STR);
-                        $req->bindValue(':Id_category', $id_category, PDO::PARAM_STR);
+                        $req->bindValue(':Id_category', $idCategory, PDO::PARAM_STR);
 
 
                         
