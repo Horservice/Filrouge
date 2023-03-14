@@ -8,31 +8,24 @@ catch(Exception $e){
         die('Erreur : '.$e->getMessage());
 }
 
-var_dump($_POST);
-var_dump($_FILES);
-var_dump($_GET);
 
-
-$query1= 'SELECT * FROM sub_category WHERE Id <=3';
+//a switche plus tard id_category la on teste//
+$query1= 'SELECT * FROM sub_category WHERE Id between 1 and 3';
 $req1 = $db->prepare($query1);
 $req1->execute();
 $sub_categorys = $req1->fetchAll(PDO::FETCH_ASSOC);
 
 
-$query3= 'SELECT * FROM sub_category WHERE Id <=3';
+$query3= 'SELECT * FROM sub_category WHERE Id between 4 and 6';
 $req3 = $db->prepare($query3);
 $req3->execute();
 $sub_categorys1 = $req3->fetchAll(PDO::FETCH_ASSOC);
 
 
-
-
-
-
-
-
-
-
+$query4= 'SELECT * FROM sub_category WHERE Id between 7 and 9';
+$req4 = $db->prepare($query4);
+$req4->execute();
+$sub_categorys2 = $req4->fetchAll(PDO::FETCH_ASSOC);
 
 
 
@@ -278,9 +271,9 @@ if(isset($_POST['submit'])){
                     
 
                         <?php
-                        foreach ($sub_categorys as $sub_category) {
+                        foreach ($sub_categorys2  as $sub_category2 ) {
                         ?>
-                            <option value="<?= $sub_category['Id'] ?>"><?= $sub_category['name'] ?></option>
+                            <option value="<?= $sub_category2 ['Id'] ?>"><?= $sub_category2 ['name'] ?></option>
                         <?php
                         }
                         ?>
