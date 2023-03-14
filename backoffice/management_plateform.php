@@ -1,5 +1,5 @@
 <?php
-
+$msg='';
 try{
 	// On se connecte à MySQL
 	$db = new PDO('mysql:host=localhost;dbname=filrouge;charset=utf8', 'root', '');
@@ -35,9 +35,10 @@ $plateforms = $req->fetchAll();
     <title>Document</title>
 </head>
 <body>
+    <?=$msg?>
     <div class="container">
     <p class="text-end">
-	<a class="btn btn-primary text-end" role="button">Ajouter une Plateforme</a>
+	<a class="btn btn-primary text-end" href="index.php?page=add_plateform" role="button">Ajouter une Plateforme</a>
     </p>
 
     <table class="table table-bordered table-striped mx-auto">
@@ -56,8 +57,8 @@ $plateforms = $req->fetchAll();
                 <td><?=$plateform['Id']?></td>
                 <td><?=$plateform['name']?></td>
                 <td class="text-center">
-                <a class="btn btn-warning" role="button">Modifier</a>
-				<a class="btn btn-danger" onclick="return(confirm('Voulez-vous supprimer cet plateforme ?'));"
+                <a class="btn btn-warning" href="index.php?page=edit_plateform&Id=<?=$plateform['Id']?>" role="button">Modifier</a>
+				<a class="btn btn-danger" onclick="return(confirm('Voulez-vous supprimer cet plateform ?'));"
 					href="?Id=<?=$plateform['Id']?>" role="button">Supprimer</a>
 			    </td>
               </tr>

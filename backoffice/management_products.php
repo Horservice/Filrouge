@@ -25,6 +25,7 @@ $products = $req->fetchAll();
 
 
 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,12 +50,11 @@ $products = $req->fetchAll();
                 <th>description</th>
                 <th>chemin</th>
                 <th>photo</th>
-                <th>photo</th>
-                <th>photo</th>
-                <th>photo</th>
-                <th>photo</th>
-                <th>photo</th>
-
+                <th>Is_enable</th>
+                <th>Id_plateform</th>
+                <th>Sub_category</th>
+                <th>Action</th>
+     
             </tr>
         </thead>
         
@@ -70,7 +70,6 @@ $products = $req->fetchAll();
                 <td><?=$product['is_enable']?></td>
                 <td><?=$product['Id_plateforms']?></td>
                 <td><?=$product['Id_sub_category']?></td>
-                <td><?=$product['Id_category']?></td>
                 <td class="text-center">
                 <a class="btn btn-warning" role="button">Modifier</a>
 				<a class="btn btn-danger" onclick="return(confirm('Voulez-vous supprimer cet {insere} ?'));"

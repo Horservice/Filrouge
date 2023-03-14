@@ -43,6 +43,29 @@ if(isset($_GET['page']) && $_GET['page'] !=NULL) {
 						else if($page == "management_admin") {
 							$inc= 'management_admin.php';
 							}
+							else if($page == "add_admin") {
+								$inc= 'register_admin.php';
+								}
+								else if($page == "add_category") {
+									$inc= 'add_category.php';
+									}
+									else if($page == "add_sub_category") {
+										$inc= 'add_sub_category.php';
+										}
+									else if($page == "add_plateform") {
+										$inc= 'add_plateform.php';
+										}
+										else if($page == "add_products") {
+											$inc= 'add_products.php';
+											}
+											else if($page == "edit_category") {
+												$inc= 'edit_category.php';
+												}
+												else if($page == "edit_plateform") {
+													$inc= 'edit_plateform.php';
+													}
+
+								
 		
 
 
