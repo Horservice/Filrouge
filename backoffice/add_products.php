@@ -8,23 +8,37 @@ catch(Exception $e){
         die('Erreur : '.$e->getMessage());
 }
 
+var_dump($_POST);
+var_dump($_FILES);
+var_dump($_GET);
 
+
+$query1= 'SELECT * FROM sub_category WHERE Id between 1 and 3';
 $query1= 'SELECT * FROM sub_category WHERE Id_category = 1';
 $req1 = $db->prepare($query1);
 $req1->execute();
 $sub_categorys = $req1->fetchAll(PDO::FETCH_ASSOC);
 
 
+$query3= 'SELECT * FROM sub_category WHERE Id between 4 and 6';
 $query3= 'SELECT * FROM sub_category WHERE Id_category = 2';
 $req3 = $db->prepare($query3);
 $req3->execute();
 $sub_categorys1 = $req3->fetchAll(PDO::FETCH_ASSOC);
 
 
+$query4= 'SELECT * FROM sub_category WHERE Id between 7 and 9';
 $query4= 'SELECT * FROM sub_category WHERE Id_category = 3';
 $req4 = $db->prepare($query4);
 $req4->execute();
 $sub_categorys2 = $req4->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+
+
+
+
 
 
 
@@ -80,8 +94,8 @@ if(isset($_POST['submit'])){
                     move_uploaded_file($_FILES['photo']['tmp_name'], 'uploads/' . basename($_FILES['photo']['name']));
                     $screenshot = 'uploads/' . basename($_FILES['photo']['name']);
 
-                    $query = 'INSERT INTO products(identifier, name, description, price, path, is_enable, Id_plateforms, Id_sub_category, Id_category)
-                              VALUES (:identifier, :name, :description, :price, :path, :is_enable, :Id_plateforms, :Id_sub_category, :Id_category )';
+                    $query = 'INSERT INTO products(identifier, name, description, price, path, is_enable, Id_plateforms, Id_sub_category)
+                              VALUES (:identifier, :name, :description, :price, :path, :is_enable, :Id_plateforms, :Id_sub_category)';
                     $req = $db->prepare($query);
                     
                     $req->bindValue(':identifier', $identifier, PDO::PARAM_STR);
@@ -168,7 +182,7 @@ if(isset($_POST['submit'])){
 
             <div class="mb-3">
                 <label for="identifier" class="form-label">identifier</label>
-                <input type="text" class="form-control"  name="identifier">
+                <input type="number" class="form-control"  name="identifier">
             </div>
 
             <div class="mb-3">
@@ -270,9 +284,9 @@ if(isset($_POST['submit'])){
                     
 
                         <?php
-                        foreach ($sub_categorys2  as $sub_category2 ) {
+                        foreach ($sub_categorys as $sub_category) {
                         ?>
-                            <option value="<?= $sub_category2 ['Id'] ?>"><?= $sub_category2 ['name'] ?></option>
+                            <option value="<?= $sub_category['Id'] ?>"><?= $sub_category['name'] ?></option>
                         <?php
                         }
                         ?>
