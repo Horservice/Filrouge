@@ -9,20 +9,19 @@ catch(Exception $e){
 }
 
 
-//a switche plus tard id_category la on teste//
-$query1= 'SELECT * FROM sub_category WHERE Id between 1 and 3';
+$query1= 'SELECT * FROM sub_category WHERE Id_category = 1';
 $req1 = $db->prepare($query1);
 $req1->execute();
 $sub_categorys = $req1->fetchAll(PDO::FETCH_ASSOC);
 
 
-$query3= 'SELECT * FROM sub_category WHERE Id between 4 and 6';
+$query3= 'SELECT * FROM sub_category WHERE Id_category = 2';
 $req3 = $db->prepare($query3);
 $req3->execute();
 $sub_categorys1 = $req3->fetchAll(PDO::FETCH_ASSOC);
 
 
-$query4= 'SELECT * FROM sub_category WHERE Id between 7 and 9';
+$query4= 'SELECT * FROM sub_category WHERE Id_category = 3';
 $req4 = $db->prepare($query4);
 $req4->execute();
 $sub_categorys2 = $req4->fetchAll(PDO::FETCH_ASSOC);
