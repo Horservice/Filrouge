@@ -49,7 +49,7 @@ if(isset($_POST['submit'])){
     if (password_verify($password,$data['password'])){
 
 
-        header("Location: index_admin.php");
+        header("Location: index.php");
         
         $msg1='Le mot de passe est valide !';
     } else {

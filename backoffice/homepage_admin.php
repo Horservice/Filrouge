@@ -10,19 +10,6 @@ try{
 }
 
 
-session_start();
-
-if (!isset($_SESSION["lastname"])) {
-    echo "il y a un soucis";
-
-}
-
-
-
-if (isset($_SESSION["lastname"])) {
-    echo $_SESSION["lastname"];
-    echo " ça marche";
-}
 
 
 ?>
